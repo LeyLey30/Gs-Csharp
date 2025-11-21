@@ -1,0 +1,88 @@
+<Window x:Class="HybridWorkApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="HybridWorkApp - Conciliar Vida Pessoal e Profissional" Height="600" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,0,10">
+            <Button x:Name="BtnSave" Click="BtnSave_Click" Margin="0,0,10,0" Padding="8,4">Salvar Dados</Button>
+            <Button x:Name="BtnLoad" Click="BtnLoad_Click" Margin="0,0,10,0" Padding="8,4">Carregar Dados</Button>
+            <Button x:Name="BtnExport" Click="BtnExport_Click" Padding="8,4">Exportar Cronograma (CSV)</Button>
+        </StackPanel>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Dashboard">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="Usuário:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="TxtUserName" Width="220"/>
+                        <Button Content="Atualizar" Click="BtnUpdateUser_Click" Margin="8,0,0,0" Padding="6,4"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Header="Resumo" Margin="0,0,8,0">
+                            <StackPanel Margin="8">
+                                <TextBlock x:Name="TxtSummary" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Simulação de Produtividade" Grid.Column="1">
+                            <StackPanel Margin="8">
+                                <TextBlock Text="Escolha dias remotos no cronograma e calcule um índice de equilíbrio."/>
+                                <Button Content="Calcular Índice" Click="BtnCalculate_Click" Margin="0,8,0,0" Padding="6,4"/>
+                                <TextBlock x:Name="TxtProductivity" Margin="0,8,0,0" FontWeight="Bold"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Cronograma">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <Label Content="Dia:" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="CbDay" Width="140" Margin="4,0"/>
+                        <Label Content="Tipo:" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        <ComboBox x:Name="CbType" Width="140" Margin="4,0">
+                            <ComboBoxItem Content="Presencial"/>
+                            <ComboBoxItem Content="Remoto"/>
+                            <ComboBoxItem Content="Híbrido"/>
+                        </ComboBox>
+                        <Button Content="Adicionar" Click="BtnAdd_Click" Margin="8,0,0,0" Padding="6,4"/>
+                        <Button Content="Remover Selecionado" Click="BtnRemove_Click" Margin="8,0,0,0" Padding="6,4"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="GridSchedule" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Dia" Binding="{Binding Day}" Width="*"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Type}" Width="*"/>
+                            <DataGridTextColumn Header="Notas" Binding="{Binding Notes}" Width="2*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
